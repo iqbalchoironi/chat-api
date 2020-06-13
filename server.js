@@ -4,10 +4,12 @@ const app = express();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
+const config  = require('./config/key');
+
 const { User } = require('./models/user');
 
 const mongosee = require('mongosee');
-mongosee.connect('',{useNewUrlParser: true})
+mongosee.connect(config.mongoURI,{useNewUrlParser: true})
     .then(() => {
         console.log('DB Conected');
     })
@@ -23,7 +25,7 @@ app.post('/api/users/register', (req, res) => {
     user.save((err, userData) =>{
         if(err) return res.json({ success: false, err})
     })
-    return res.status(200)
+    return res.status(200);
 })
 
 app.listen(5000);
