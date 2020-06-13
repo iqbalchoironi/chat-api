@@ -74,4 +74,13 @@ app.post('/api/user/login', (req, res) => {
     
 })
 
+app.get("/api/user/logout", (req,res) => {
+    User.findByIdAndUpdate({_id: req.user._id}, {token: ""}, (err, doc) => {
+        if (err) return res.json({ success: false, err});
+        return res.status(200).send({
+            success: true
+        })
+    })
+})
+
 app.listen(5000);
