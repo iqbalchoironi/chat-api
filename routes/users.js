@@ -22,8 +22,7 @@ router.get("/auth", auth, (req, res) => {
 });
 
 router.post("/register", (req, res) => {
-
-    const user = new User(req.body);
+    console.log(req.body);
 
     user.save((err, doc) => {
         if (err) return res.json({ success: false, err });
@@ -47,9 +46,9 @@ router.post("/login", (req, res) => {
 
             user.generateToken((err, user) => {
                 if (err) return res.status(400).send(err);
-                res.cookie("w_authExp", user.tokenExp);
+                res.cookie("x_authExp", user.tokenExp);
                 res
-                    .cookie("w_auth", user.token)
+                    .cookie("x_auth", user.token)
                     .status(200)
                     .json({
                         loginSuccess: true, userId: user._id
